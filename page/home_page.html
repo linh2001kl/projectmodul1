@@ -9,13 +9,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Student Management</title>
     <link rel="stylesheet" href="../css/homepage.css">
+    <header>
+        <a href="../pages/home_page.html"><img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1K7wmoAHL09F5YuLHiIXZHO0B7TKproMM2Bo_b4FtMjntY8eR_ZpMpmut0Fxc-LFSkFo&usqp=CAU"
+            alt=""
+        /></a>
+        <!-- <p class="nd">Để nông dân biết code</p> -->
+        <div class="position-absolute top-0 start-0"></div>
+        <h2>Hệ thống quản lý sinh viên Rikkei</h2>
+        <button class="btn_logout" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logout">
+            Đăng xuất
+        </button>
+    </header>
 </head>
 
 <body>
-    <h2>TRANG CHỦ CỦA HỆ THỐNG QUẢN LÝ SINH VIÊN</h2>
+    <!-- <h2>TRANG CHỦ CỦA HỆ THỐNG QUẢN LÝ SINH VIÊN</h2>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logout">
         Đăng xuất
-    </button>
+    </button> -->
     <div class="modal fade" id="logout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -38,17 +50,17 @@
         <ul class="list-group">
           <li class="list-group-item">
             
-              <i class="fa-solid fa-chart-line"></i>Bảng điều khiển
+              Bảng điều khiển
             
           </li>
           <li class="list-group-item" id="btnCourseManagement">
             
-              <i class="fa-solid fa-list-check"></i>Quản lý khóa học
+              Quản lý khóa học
             
           </li>
           <li class="list-group-item">
             
-              <i class="fa-solid fa-bars-progress"></i>Quản lý lớp học
+              Quản lý lớp học
             
           </li>
           <li class="list-group-item">Quản lý sinh viên</li>
@@ -80,6 +92,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="../js/home_page.js"></script>
+    <!-- <script src = "../js/data_demo.js"> </script> -->
 </body>
 
 </html>

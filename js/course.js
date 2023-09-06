@@ -25,9 +25,9 @@ function renderData() {
                 <td>${course.status ? "Hoạt động" : "Không hoạt động"}</td>
                 <td>
                 <i class="fa-solid fa-pen-to-square" id="editCourse"></i>
-                <button class="btn btn-primary" onclick=initEdit() data-bs-toggle="modal" data-bs-target="#updateCourse">Edit</button>
+                <button class="btn btn-primary" onclick=initEdit(${course.courseId}) data-bs-toggle="modal" data-bs-target="#updateCourse">Edit</button>
                 <i class="fa-solid fa-trash" id="deleteCourse"></i>
-                <button onclick=deleteCourse()>Delete</button>
+                <button onclick=deleteCourse(${course.courseId})>Delete</button>
                     
                     
                 </td>
@@ -90,21 +90,22 @@ var updateCourseModal = new bootstrap.Modal(document.getElementById('updateCours
 })
 function initEdit(courseId) {
   // 1. Lấy arrCourse từ localStorage
-  let arrCourse = localStorage.getItem("studentManagement") ? JSON.parse(localStorage.getItem("studentManagement")) : [];
-  // 2. Lấy thông tin danh mục cần cập nhật
-  let index = getCatalogById(arrCourse, courseId);
-  // 3. Hiển thị thông tin danh mục cần cập nhật lên Input Form
-  document.getElementById("courseId").value = arrCourse[index].courseId;
-  document.getElementById("courseId").readOnly = true;
-  document.getElementById("courseName").value = arrCourse[index].courseName;
-  document.getElementById("courseTime").value = arrCourse[index].courseTime;
-  if (arrCourse[index].active == "active") {
-      document.getElementById("active").checked = true;
-  } else {
-      document.getElementById("inActive").checked = true;
-  }
-  // 4. Đặt lại cờ
-  action = "Edit";
+  // let arrCourse = localStorage.getItem("studentManagement") ? JSON.parse(localStorage.getItem("studentManagement")) : [];
+  // // 2. Lấy thông tin danh mục cần cập nhật
+  // let index = getCatalogById(arrCourse, courseId);
+  console.log(courseId);
+  // // 3. Hiển thị thông tin danh mục cần cập nhật lên Input Form
+  // document.getElementById("courseId2").value = arrCourse[index].courseId;
+  // document.getElementById("courseId2").readOnly = true;
+  // document.getElementById("courseName").value = arrCourse[index].courseName;
+  // document.getElementById("courseTime").value = arrCourse[index].courseTime;
+  // if (arrCourse[index].active == "active") {
+  //     document.getElementById("active").checked = true;
+  // } else {
+  //     document.getElementById("inActive").checked = true;
+  // }
+  // // 4. Đặt lại cờ
+  // action = "Edit";
 }
 // Hàm lấy thông tin danh mục theo mã danh mục
 function getCatalogById(arrCourse, courseId) {
@@ -117,36 +118,37 @@ function getCatalogById(arrCourse, courseId) {
 }
 // Hàm cập nhật danh mục
 
-document.getElementById("btnUpdateCourse").addEventListener("click", function () {
-    // 1. Lấy arrCourse từ localStorage
-    let arrCourse = localStorage.getItem("studentManagement") ? JSON.parse(localStorage.getItem("studentManagement")) : [];
-    //2. Lấy dữ liệu trên modal
-    let courseId = document.getElementById("courseId").value;
-    let courseName = document.getElementById("courseName").value;
-    let courseTime = document.getElementById("courseTime").value;
-    let status =
-      document.querySelector("input[type='radio']:checked").value == "true"
-        ? true
-        : false;
-    let updateCourse = { courseId, courseName, courseTime, status, arrClass: [] };
-    // 3. Cập nhật updateCourse trong arrCourse
-    // 3.1. Lấy chỉ số phần tử cần cập nhật
-    let index = getCatalogById(arrCourse, updateCourse.courseId);
-    // 3.2. Cập nhật
-    if (index > -1) {
-        arrCourse[index] = updateCourse;
-    }
-    // 4. set arrCourse vào localStorage
-    localStorage.setItem("studentManagement", JSON.stringify(arrCourse));
-    // 5. đặt lại cờ action
-    action = "Create";
-    // 6. resetForm
-    resetForm();
-    // 7. Đặt lại courseId readOnly
-    document.getElementById("courseId").readOnly = false;
-    // 8. renderData table
-    renderData(1, arrCourse);
-})
+// document.getElementById("btnUpdateCourse").addEventListener("click", function () {
+//   console.log("da cap nhat")
+//     // 1. Lấy arrCourse từ localStorage
+//     let arrCourse = localStorage.getItem("studentManagement") ? JSON.parse(localStorage.getItem("studentManagement")) : [];
+//     //2. Lấy dữ liệu trên modal
+//     let courseId = document.getElementById("courseId2").value;
+//     let courseName = document.getElementById("courseName").value;
+//     let courseTime = document.getElementById("courseTime").value;
+//     let status =
+//       document.querySelector("input[type='radio']:checked").value == "true"
+//         ? true
+//         : false;
+//     let updateCourse = { courseId, courseName, courseTime, status, arrClass: [] };
+//     // 3. Cập nhật updateCourse trong arrCourse
+//     // 3.1. Lấy chỉ số phần tử cần cập nhật
+//     let index = getCatalogById(arrCourse, updateCourse.courseId);
+//     // 3.2. Cập nhật
+//     if (index > -1) {
+//         arrCourse[index] = updateCourse;
+//     }
+//     // 4. set arrCourse vào localStorage
+//     localStorage.setItem("studentManagement", JSON.stringify(arrCourse));
+//     // 5. đặt lại cờ action
+//     action = "Create";
+//     // 6. resetForm
+//     resetForm();
+//     // 7. Đặt lại courseId readOnly
+//     document.getElementById("courseId").readOnly = false;
+//     // 8. renderData table
+//     renderData(1, arrCourse);
+// })
 // Hàm xóa danh mục sản phẩm
 function deleteCourse(courseId) {
     // 1. Lấy dữ liệu arrCourse từ localStorage
