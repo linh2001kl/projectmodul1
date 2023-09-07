@@ -7,7 +7,7 @@ header {
     justify-content: center;
     align-items: center;
 }
-header > .btn_logout{
+header > .btnlogout{
     border-end-end-radius: 50px;
     border-end-start-radius: 50px;
     border-top-left-radius: 50px;
@@ -16,4 +16,7 @@ header > .btn_logout{
     position:absolute;
     right: 0;
     
+}
+btnlogout{
+    text-align:end;
 }

@@ -10,16 +10,27 @@
     <title>Student Management</title>
     <link rel="stylesheet" href="../css/homepage.css">
     <header>
-        <a href="../pages/home_page.html"><img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1K7wmoAHL09F5YuLHiIXZHO0B7TKproMM2Bo_b4FtMjntY8eR_ZpMpmut0Fxc-LFSkFo&usqp=CAU"
-            alt=""
-        /></a>
+        <div class="d-flex justify-content-around container">
+            <div class="row justify-content-start">
+                <div class="col-2"><a href="../pages/home_page.html"><img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1K7wmoAHL09F5YuLHiIXZHO0B7TKproMM2Bo_b4FtMjntY8eR_ZpMpmut0Fxc-LFSkFo&usqp=CAU"
+                    alt="" width="70" /></a></div>
+        <div class="col-8">
+            <h2>Hệ thống quản lý sinh viên Rikkei</h2>
+        </div>
+        </div>
         <!-- <p class="nd">Để nông dân biết code</p> -->
-        <div class="position-absolute top-0 start-0"></div>
-        <h2>Hệ thống quản lý sinh viên Rikkei</h2>
-        <button class="btn_logout" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logout">
-            Đăng xuất
-        </button>
+        <div class="col-2" >
+            <button class="btn_logout" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#logout">
+                Đăng xuất
+            </button>
+        </div>
+            </div>
+            
+
+        </div>
+        
     </header>
 </head>
 
@@ -48,25 +59,25 @@
 
     <div class="card" style="width: 18rem">
         <ul class="list-group">
-          <li class="list-group-item">
-            
-              Bảng điều khiển
-            
-          </li>
-          <li class="list-group-item" id="btnCourseManagement">
-            
-              Quản lý khóa học
-            
-          </li>
-          <li class="list-group-item">
-            
-              Quản lý lớp học
-            
-          </li>
-          <li class="list-group-item">Quản lý sinh viên</li>
-          <li class="list-group-item">Quản lý tài khoản</li>
+            <li class="list-group-item">
+
+                Bảng điều khiển
+
+            </li>
+            <li class="list-group-item" id="btnCourseManagement">
+
+                Quản lý khóa học
+
+            </li>
+            <li class="list-group-item">
+
+                Quản lý lớp học
+
+            </li>
+            <li class="list-group-item">Quản lý sinh viên</li>
+            <li class="list-group-item">Quản lý tài khoản</li>
         </ul>
-      </div>
+    </div>
     <h3>Thống kê khóa học</h3>
     <ul>
         <li>
