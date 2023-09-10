@@ -1,3 +1,50 @@
+// số item 1 trang
+let maxPageItem = 5;
+let nowPage = 0;
+
+function renderPageItem() {
+  let pageCount = Math.ceil(JSON.parse(localStorage.getItem("studentManagement") ?? "[]").length / maxPageItem);
+  let elPageBox = document.getElementById("page_box");
+  let dataString = ``;
+  for (let i = 1; i <= pageCount; i++) {
+    dataString += `
+      <span class="page_item" onclick="pageChange('${i}')" style="cursor: pointer; margin-right: 5px;">${i}</span>
+    `
+  }
+  elPageBox.innerHTML=dataString;
+}
+
+function colorPage(pageNumber) {
+  let pageElList = document.querySelectorAll(".page_item");
+  for(let i in pageElList) {
+    if(i == "entries") break
+    if(Number(i) + 1 == pageNumber) {
+      pageElList[i].classList.add("pageActive")
+    }else {
+      pageElList[i].classList.remove("pageActive")
+    }
+  }
+}
+
+function pageChange(pageNumber) {
+  let courses = JSON.parse(localStorage.getItem("studentManagement") ?? "[]");
+  let data = [];
+  for(let i in courses) {
+    if(Number(i) >= ((Number(pageNumber) * maxPageItem) - maxPageItem)) {
+      if(data.length == maxPageItem) break
+      data.push(courses[i])
+    }
+  }
+  nowPage = pageNumber;
+  renderData(data)
+  colorPage(nowPage)
+}
+
+renderPageItem();
+pageChange(1)
+colorPage(1)
+
+
 let studentManagement =
   JSON.parse(localStorage.getItem("studentManagement")) || [];
 document.getElementById("btnLogout").addEventListener("click", function () {
@@ -9,13 +56,12 @@ document.getElementById("btnLogout").addEventListener("click", function () {
 });
 
 //Hàm hiển thị dữ liệu
-function renderData() {
-  let arrCourse = JSON.parse(localStorage.getItem("studentManagement")) || [];
+function renderData(sources) {
   let listCourse = document.getElementById("listCourse");
-  listCourse.innerHTML = "";
+  listCourse.innerHTML = ""; 
   //forEach(functionCallback,thisValue)
   //functionCallback(element,index,arr)
-  arrCourse.forEach((course, index) => {
+  sources.forEach((course, index) => {
     listCourse.innerHTML += `
             <tr>
                 <td>${index + 1}</td>
@@ -26,16 +72,23 @@ function renderData() {
                 <td>
                 <i class="fa-solid fa-pen-to-square" id="editCourse"></i>
                 <button class="btn btn-primary" onclick=initEdit("${course.courseId}") data-bs-toggle="modal" data-bs-target="#updateCourse">Edit</button>
-                <i class="fa-solid fa-trash" id="deleteCourse"></i>
-                <button onclick data-bs-toggle="modal" data-bs-target="#updateCourse")>Delete</button>
+                <i  onclick="deleteCourse('${course.courseId}')" class="fa-solid fa-trash"></i>
+                <button onclick="setDataFormDelete('${course.courseId}')" data-bs-toggle="modal" data-bs-target="#deleteCourse")>Delete</button>
                     
                     
                 </td>
             </tr>
         `;
   });
+  
 }
 
+function setDataFormDelete(courseId) {
+  let elCofirm = document.getElementById("modalDeleteConfirm");
+  elCofirm.addEventListener('click', () => {
+    deleteCourse(courseId)
+  })
+}
 // // Hàm thêm mới một danh mục
 // function getCourseForm() {
 //     let courseId = document.getElementById("courseId").value;
@@ -75,7 +128,8 @@ document
     document.getElementById("active").checked = true;
     newCourseModal.hide();
     //6. render lại dữ liệu
-    renderData();
+    renderPageItem()
+    pageChange(nowPage)
   });
   // Hàm resetForm
 function resetForm() {
@@ -145,24 +199,31 @@ document.getElementById("btnUpdateCourse").addEventListener("click", function ()
     // 7. Đặt lại courseId readOnly
     document.getElementById("courseId").readOnly = false;
     // 8. renderData table
-    renderData(1, arrCourse);
+    pageChange(nowPage)
+    renderPageItem()
 })
-// hàm initDelete
 
 // Hàm xóa danh mục sản phẩm
 function deleteCourse(courseId) {
-    // 1. Lấy dữ liệu arrCourse từ localStorage
-    let arrCourse = localStorage.getItem("studentManagement") ? JSON.parse(localStorage.getItem("studentManagement")) : [];
-    // 2. Xóa catalog trong arrCourse theo courseId
-    let index = getCatalogById(arrCourse, courseId);
-    arrCourse.splice(index, 1);
-    // 3. set arrCourse vào localStorage
-    localStorage.setItem("studenManagement", JSON.stringify(arrCourse));
-    // 4. render Data
-    renderData(1, arrCourse);
+    let course = JSON.parse(localStorage.getItem("studentManagement") ?? "[]"); // lấy danh course tren local, nếu không có thì lấy mãng rỗng.
+    // set lại giá trị mới cho course trên local bằng chính nó lọc đi những thằng có ID trùng với courseId muốn xóa
+    localStorage.setItem("studentManagement", JSON.stringify(course.filter(item => item.courseId != courseId)))
+    // load lại dữ liệu
+    pageChange(nowPage)
+    renderPageItem()
+    // // 1. Lấy dữ liệu arrCourse từ localStorage
+    // let arrCourse = localStorage.getItem("studentManagement") ? JSON.parse(localStorage.getItem("studentManagement")) : [];
+    // // 2. Xóa catalog trong arrCourse theo courseId
+    // let index = getCatalogById(arrCourse, courseId);
+    // arrCourse.splice(index, 1);
+    // // 3. set arrCourse vào localStorage
+    // localStorage.setItem("studenManagement", JSON.stringify(arrCourse));
+    // // 4. render Data
+    // renderData(1, arrCourse);
+
 }
 
-window.onload = renderData();
+window.onload = pageChange(nowPage)
 
 
 

@@ -20,3 +20,7 @@ header > .btnlogout{
 btnlogout{
     text-align:end;
 }
+
+.pageActive {
+    color: blue;
+}
